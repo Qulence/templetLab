@@ -79,6 +79,9 @@ struct stopper : actor_interface{
 /*$TET$*/
 };
 
+/*$TET$code&data*/
+/*$TET$*/
+
 int main(int argc, char *argv[])
 {
 	engine_interface e(argc, argv);

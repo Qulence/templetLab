@@ -8,7 +8,7 @@ struct my_engine : engine{
 	my_engine(int argc, char *argv[]){
 		::init(this, argc, argv);
 	}
-	void run(){ TEMPLET::run(this); }
+	bool run(){ return TEMPLET::run(this); }
 	void map(){ TEMPLET::map(this); }
 };
 
@@ -40,9 +40,9 @@ struct seeder : actor{
 	enum tag{START,TAG_p};
 
 	seeder(my_engine&e):p(this, &e, TAG_p){
-		::init(this, &e, seeder_recv_adapter);
-		::init(&_start, this, &e);
-		::send(&_start, this, START);
+		TEMPLET::init(this, &e, seeder_recv_adapter);
+		TEMPLET::init(&_start, this, &e);
+		TEMPLET::send(&_start, this, START);
 /*$TET$seeder$seeder*/
 /*$TET$*/
 	}
@@ -85,7 +85,7 @@ struct filter : actor{
 	enum tag{START,TAG_in,TAG_out};
 
 	filter(my_engine&e):out(this, &e, TAG_out){
-		::init(this, &e, filter_recv_adapter);
+		TEMPLET::init(this, &e, filter_recv_adapter);
 /*$TET$filter$filter*/
 /*$TET$*/
 	}
@@ -128,7 +128,7 @@ struct stopper : actor{
 	enum tag{START,TAG_p};
 
 	stopper(my_engine&e){
-		::init(this, &e, stopper_recv_adapter);
+		TEMPLET::init(this, &e, stopper_recv_adapter);
 /*$TET$stopper$stopper*/
 /*$TET$*/
 	}
@@ -157,6 +157,9 @@ struct stopper : actor{
 /*$TET$stopper$$code&data*/
 /*$TET$*/
 };
+
+/*$TET$code&data*/
+/*$TET$*/
 
 int main(int argc, char *argv[])
 {
